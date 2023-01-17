@@ -16,13 +16,13 @@ class Tree {
 		if (start > end) {
 			return null;
 		}
-		console.log(arr);
+		// console.log(arr);
 		let middleIndex = parseInt((start + end) / 2);
 		// console.log(middleIndex);
 		let root = new Node(arr[middleIndex]);
 		root.left = this.buildTree(arr.slice(0, middleIndex));
 		root.right = this.buildTree(arr.slice(middleIndex + 1, arr.length));
-
+		this.root = root;
 		return root;
 	}
 
@@ -39,12 +39,50 @@ class Tree {
 			this.prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
 		}
 	}
+	insert(value) {
+		// we will only add the new nodes at the leaf node we will not change the location of old nodes
+		if (!this.root) {
+			return null;
+		}
+		console.log(this.root);
+		let temp = this.root;
+		// console.log(value);
+		while (temp.left || temp.right) {
+			// console.log(JSON.stringify(temp, null, 2));
+			if (temp.data >= value) {
+				if (!temp.left) {
+					//if there left is null then assign the new node otherwise temp is equal to temp.left
+					temp.left = new Node(value);
+					return temp;
+				}
+				temp = temp.left;
+			} else {
+				if (!temp.right) {
+					temp.right = new Node(value);
+
+					return temp;
+				}
+				temp = temp.right;
+			}
+		}
+		if (value > temp.data) {
+			temp.right = new Node(value);
+		} else {
+			temp.left = new Node(value);
+		}
+		return temp;
+	}
 }
 
 let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
-console.log(arr);
+// console.log(arr);
 
 let bSTree = new Tree(arr);
-
 // console.log(bSTree.buildTree());
 bSTree.prettyPrint(bSTree.buildTree());
+bSTree.insert(9);
+bSTree.insert(2);
+bSTree.insert(2);
+
+bSTree.prettyPrint(bSTree.root);
+console.log(bSTree.root);
