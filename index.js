@@ -72,6 +72,52 @@ class Tree {
 		}
 		return temp;
 	}
+
+	delete(value) {
+		if (!this.root) {
+			return null;
+		}
+		let temp = this.root;
+		let tempFather = null;
+		while (temp.data != value) {
+			if (temp.data >= value) {
+				if (!temp.left) {
+					return null;
+				}
+				tempFather = temp;
+				temp = temp.left;
+			} else {
+				if (!temp.right) {
+					return null;
+				}
+				tempFather = temp;
+
+				temp = temp.right;
+			}
+		}
+		console.log();
+
+		if (!temp.left && !temp.right) {
+			//deleting a leaf just delete the leaf with the node nothing else has to change
+			tempFather.left = null;
+			tempFather.right = null;
+		} else if ((temp.left && !temp.right) || (!temp.left && temp.right)) {
+			//deleting a node which has only one child we just have to replace  the node with its child
+			if (temp.left) {
+				if (tempFather.left == temp) {
+					tempFather.left = temp.left;
+				} else {
+					tempFather.right = temp.left;
+				}
+			} else if (temp.right) {
+				if (tempFather.left == temp) {
+					tempFather.left = temp.right;
+				} else {
+					tempFather.right = temp.right;
+				}
+			}
+		}
+	}
 }
 
 let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
@@ -82,7 +128,12 @@ let bSTree = new Tree(arr);
 bSTree.prettyPrint(bSTree.buildTree());
 bSTree.insert(9);
 bSTree.insert(2);
-bSTree.insert(2);
+// bSTree.insert(2);
+bSTree.delete(2);
+bSTree.delete(23);
+bSTree.delete(6345);
+bSTree.delete(5);
+bSTree.delete(1);
 
 bSTree.prettyPrint(bSTree.root);
 console.log(bSTree.root);
