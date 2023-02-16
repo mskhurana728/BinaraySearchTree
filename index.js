@@ -44,7 +44,7 @@ class Tree {
 		if (!this.root) {
 			return null;
 		}
-		console.log(this.root);
+		// console.log(this.root);
 		let temp = this.root;
 		// console.log(value);
 		while (temp.left || temp.right) {
@@ -77,8 +77,13 @@ class Tree {
 		if (!this.root) {
 			return null;
 		}
+
 		let temp = this.root;
 		let tempFather = null;
+		if (temp.data == value) {
+			// if root is the node we want to delete
+			tempFather = temp;
+		}
 		while (temp.data != value) {
 			if (temp.data >= value) {
 				if (!temp.left) {
@@ -95,7 +100,7 @@ class Tree {
 				temp = temp.right;
 			}
 		}
-		console.log();
+		// console.log();
 
 		if (!temp.left && !temp.right) {
 			//deleting a leaf just delete the leaf with the node nothing else has to change
@@ -116,24 +121,55 @@ class Tree {
 					tempFather.right = temp.right;
 				}
 			}
+			// console.log(tempFather);
+		} else {
+			console.log(temp);
+			let tempLeft = temp.left;
+			let tempRight = temp.right;
+			// when a node has right and left node which we want to delete then we are going to find the next biggest
+			// node
+			//then next biggest node will be in the right of node which we want to delete
+			let nextBiggestNode = temp.right;
+			// and in the right we will go far left till then when there is no left node
+			while (nextBiggestNode.left) {
+				nextBiggestNode = nextBiggestNode.left;
+			}
+			//then we are going to store next biggest node value
+			let nextBiggestNodeData = nextBiggestNode.data;
+			// we have to assign the nodes in the right of next biggest node to the father of it after delete that node
+
+			this.delete(nextBiggestNode.data);
+			console.log(nextBiggestNodeData);
+			console.log(temp);
+			this.delete(nextBiggestNode.data);
+
+			temp.data = nextBiggestNodeData;
+			temp.left = tempLeft;
 		}
 	}
 }
-
 let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 // console.log(arr);
-
 let bSTree = new Tree(arr);
 // console.log(bSTree.buildTree());
 bSTree.prettyPrint(bSTree.buildTree());
-bSTree.insert(9);
-bSTree.insert(2);
+// bSTree.insert(9);
 // bSTree.insert(2);
-bSTree.delete(2);
-bSTree.delete(23);
-bSTree.delete(6345);
-bSTree.delete(5);
-bSTree.delete(1);
+// bSTree.insert(6);
+// bSTree.delete(2);
+// bSTree.delete(23);
+// bSTree.delete(6345);
+// bSTree.delete(5);
 
+// bSTree.delete(8);
+// console.log(bSTree.root);
+bSTree.delete(67);
+bSTree.delete(4);
+bSTree.delete(8);
+bSTree.delete(5);
+bSTree.delete(324);
+bSTree.delete(9);
+bSTree.delete(23);
 bSTree.prettyPrint(bSTree.root);
-console.log(bSTree.root);
+// bSTree.delete(1);
+// bSTree.delete(11); // to check if its working if the value is not in the bts
