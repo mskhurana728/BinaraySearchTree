@@ -147,6 +147,25 @@ class Tree {
 			temp.left = tempLeft;
 		}
 	}
+	find(value) {
+		let temp = this.root;
+		while (temp.data != value) {
+			if (temp.data >= value) {
+				if (!temp.left) {
+					return null;
+				}
+
+				temp = temp.left;
+			} else {
+				if (!temp.right) {
+					return null;
+				}
+
+				temp = temp.right;
+			}
+			return temp;
+		}
+	}
 }
 let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 // console.log(arr);
@@ -163,13 +182,15 @@ bSTree.prettyPrint(bSTree.buildTree());
 
 // bSTree.delete(8);
 // console.log(bSTree.root);
-bSTree.delete(67);
-bSTree.delete(4);
-bSTree.delete(8);
-bSTree.delete(5);
-bSTree.delete(324);
-bSTree.delete(9);
-bSTree.delete(23);
+// bSTree.delete(67);
+// bSTree.delete(4);
+// bSTree.delete(8);
+// bSTree.delete(5);
+// bSTree.delete(324);
+// bSTree.delete(9);
+// bSTree.delete(23);
+console.log(bSTree.find(67));
 bSTree.prettyPrint(bSTree.root);
+
 // bSTree.delete(1);
 // bSTree.delete(11); // to check if its working if the value is not in the bts
