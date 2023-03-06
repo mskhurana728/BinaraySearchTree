@@ -163,8 +163,8 @@ class Tree {
 
 				temp = temp.right;
 			}
-			return temp;
 		}
+		return temp;
 	}
 }
 let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
@@ -190,6 +190,8 @@ bSTree.prettyPrint(bSTree.buildTree());
 // bSTree.delete(9);
 // bSTree.delete(23);
 console.log(bSTree.find(67));
+console.log(bSTree.find(3));
+console.log(bSTree.find(5));
 bSTree.prettyPrint(bSTree.root);
 
 // bSTree.delete(1);
