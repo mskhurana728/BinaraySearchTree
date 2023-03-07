@@ -166,12 +166,48 @@ class Tree {
 		}
 		return temp;
 	}
+	levelOrder(func = null) {
+		let temp = this.root;
+		let index = 0;
+		console.log(temp, this.root);
+		if (temp == null) {
+			return null;
+		}
+		let queue = [temp.data];
+		while (temp) {
+			if (temp.left) {
+				let tempLeftValue = temp.left.data;
+				console.log(tempLeftValue);
+				queue.push(tempLeftValue);
+			}
+			if (temp.right) {
+				let tempRightValue = temp.right.data;
+				console.log(tempRightValue);
+				queue.push(tempRightValue);
+			}
+			// queue = queue.push(temp.right);
+			index++;
+			let value = queue[index];
+			temp = this.find(value);
+		}
+		console.log(queue);
+		if (func) {
+			while (queue) {
+				let value = queue.shift();
+				let node = this.find(value);
+				func(node);
+			}
+		} else {
+			return queue;
+		}
+		return queue;
+	}
 }
 let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 // console.log(arr);
 let bSTree = new Tree(arr);
-// console.log(bSTree.buildTree());
-bSTree.prettyPrint(bSTree.buildTree());
+console.log(bSTree.buildTree());
+// bSTree.prettyPrint(bSTree.buildTree());
 // bSTree.insert(9);
 // bSTree.insert(2);
 // bSTree.insert(6);
@@ -189,9 +225,13 @@ bSTree.prettyPrint(bSTree.buildTree());
 // bSTree.delete(324);
 // bSTree.delete(9);
 // bSTree.delete(23);
-console.log(bSTree.find(67));
-console.log(bSTree.find(3));
-console.log(bSTree.find(5));
+// console.log(bSTree.find(67));
+// console.log(bSTree.find(3));
+// console.log(bSTree.find(5));
+function consoleFunc(node) {
+	console.log(node.data);
+}
+console.log(bSTree.levelOrder(consoleFunc));
 bSTree.prettyPrint(bSTree.root);
 
 // bSTree.delete(1);
