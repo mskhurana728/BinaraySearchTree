@@ -252,6 +252,10 @@ class Tree {
 		}
 	}
 	height(node) {
+		//it accepts a node and return its height
+		if (!node) {
+			return null;
+		}
 		let height = 0;
 		while (node.left || node.right) {
 			if (node.left) {
@@ -263,6 +267,50 @@ class Tree {
 		}
 		return height;
 	}
+	depth(node) {
+		let temp = this.root;
+		let value = node.data;
+		let depth = 0;
+		while (temp != node) {
+			if (temp.data >= value) {
+				if (!temp.left) {
+					return null;
+				}
+
+				temp = temp.left;
+				depth++;
+			} else {
+				if (!temp.right) {
+					return null;
+				}
+
+				temp = temp.right;
+				depth++;
+			}
+		}
+		return depth;
+	}
+	isBalanced(node = this.root) {
+		if (!node) {
+			return null;
+		}
+		this.isBalanced(node.left);
+		this.isBalanced(node.right);
+
+		let heightLeftSubTree = this.height(node.left);
+		let heightRightSubTree = this.height(node.right);
+		let difference = Math.abs(heightLeftSubTree - heightRightSubTree);
+		console.log(difference);
+
+		let result = true;
+
+		if (difference <= 1 && result == true) {
+			return result;
+		} else {
+			result = false;
+			return result;
+		}
+	}
 }
 let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 // console.log(arr);
@@ -270,6 +318,7 @@ let bSTree = new Tree(arr);
 console.log(bSTree.buildTree());
 // bSTree.prettyPrint(bSTree.buildTree());
 // bSTree.insert(9);
+// bSTree.insert(2);
 // bSTree.insert(2);
 // bSTree.insert(6);
 // bSTree.delete(2);
@@ -297,10 +346,14 @@ function consoleFunc(node) {
 // bSTree.preOrder();
 // bSTree.postOrder();
 // console.log(bSTree.preOrder());
-// console.log(bSTree.postOrder());
-console.log(bSTree.height(bSTree.find(67)));
-console.log(bSTree.height(bSTree.find(4)));
-console.log(bSTree.height(bSTree.find(8)));
+// // console.log(bSTree.postOrder());
+// console.log(bSTree.height(bSTree.find(67)));
+// console.log(bSTree.height(bSTree.find(4)));
+// console.log(bSTree.height(bSTree.find(8)));
+// console.log(bSTree.depth(bSTree.find(8)));
+// console.log(bSTree.depth(bSTree.find(67)));
+// console.log(bSTree.depth(bSTree.find(7)));
+console.log(bSTree.isBalanced());
 bSTree.prettyPrint(bSTree.root);
 
 // bSTree.delete(1);
