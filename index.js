@@ -177,12 +177,12 @@ class Tree {
 		while (temp) {
 			if (temp.left) {
 				let tempLeftValue = temp.left.data;
-				console.log(tempLeftValue);
+				// console.log(tempLeftValue);
 				queue.push(tempLeftValue);
 			}
 			if (temp.right) {
 				let tempRightValue = temp.right.data;
-				console.log(tempRightValue);
+				// console.log(tempRightValue);
 				queue.push(tempRightValue);
 			}
 			// queue = queue.push(temp.right);
@@ -201,6 +201,55 @@ class Tree {
 			return queue;
 		}
 		return queue;
+	}
+
+	inOrder(func, node = this.root) {
+		if (!node) {
+			return null;
+		}
+		if (!func) {
+			func = null;
+		}
+		let temp = node;
+		this.inOrder(func, temp.left);
+		if (func) {
+			func(node);
+		} else {
+			console.log(node.data);
+		}
+		this.inOrder(func, temp.right);
+	}
+	preOrder(func, node = this.root) {
+		if (!node) {
+			return null;
+		}
+		if (!func) {
+			func = null;
+		}
+		let temp = node;
+		if (func) {
+			func(node);
+		} else {
+			console.log(node.data);
+		}
+		this.preOrder(func, temp.left);
+		this.preOrder(func, temp.right);
+	}
+	postOrder(func, node = this.root) {
+		if (!node) {
+			return null;
+		}
+		if (!func) {
+			func = null;
+		}
+		let temp = node;
+		this.postOrder(func, temp.left);
+		this.postOrder(func, temp.right);
+		if (func) {
+			func(node);
+		} else {
+			console.log(node.data);
+		}
 	}
 }
 let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
@@ -231,7 +280,13 @@ console.log(bSTree.buildTree());
 function consoleFunc(node) {
 	console.log(node.data);
 }
-console.log(bSTree.levelOrder(consoleFunc));
+// console.log(bSTree.levelOrder(consoleFunc));
+bSTree.inOrder();
+bSTree.preOrder();
+bSTree.postOrder();
+// console.log(bSTree.preOrder());
+// console.log(bSTree.postOrder());
+
 bSTree.prettyPrint(bSTree.root);
 
 // bSTree.delete(1);
