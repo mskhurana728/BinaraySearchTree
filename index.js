@@ -251,6 +251,18 @@ class Tree {
 			console.log(node.data);
 		}
 	}
+	height(node) {
+		let height = 0;
+		while (node.left || node.right) {
+			if (node.left) {
+				node = node.left;
+			} else {
+				node = node.right;
+			}
+			height++;
+		}
+		return height;
+	}
 }
 let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 // console.log(arr);
@@ -281,12 +293,14 @@ function consoleFunc(node) {
 	console.log(node.data);
 }
 // console.log(bSTree.levelOrder(consoleFunc));
-bSTree.inOrder();
-bSTree.preOrder();
-bSTree.postOrder();
+// bSTree.inOrder();
+// bSTree.preOrder();
+// bSTree.postOrder();
 // console.log(bSTree.preOrder());
 // console.log(bSTree.postOrder());
-
+console.log(bSTree.height(bSTree.find(67)));
+console.log(bSTree.height(bSTree.find(4)));
+console.log(bSTree.height(bSTree.find(8)));
 bSTree.prettyPrint(bSTree.root);
 
 // bSTree.delete(1);
