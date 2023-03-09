@@ -40,6 +40,7 @@ class Tree {
 		}
 	}
 	insert(value) {
+		console.log(`Adding ${value} to the tree`);
 		// we will only add the new nodes at the leaf node we will not change the location of old nodes
 		if (!this.root) {
 			return null;
@@ -74,6 +75,8 @@ class Tree {
 	}
 
 	delete(value) {
+		console.log(`Deleting ${value} from the tree`);
+
 		if (!this.root) {
 			return null;
 		}
@@ -300,17 +303,16 @@ class Tree {
 	}
 	isBalanced(node = this.root) {
 		if (!node) {
-			return null;
+			return true;
 		}
-		this.isBalanced(node.left);
-		this.isBalanced(node.right);
+		let result = true;
+		result = this.isBalanced(node.left);
+		result = this.isBalanced(node.right);
 
 		let heightLeftSubTree = this.height(node.left);
 		let heightRightSubTree = this.height(node.right);
 		let difference = Math.abs(heightLeftSubTree - heightRightSubTree);
-		console.log(difference);
-
-		let result = true;
+		// console.log(difference);
 
 		if (difference <= 1 && result == true) {
 			return result;
@@ -327,57 +329,69 @@ class Tree {
 			return;
 		}
 		let inOrderList = this.inOrder();
-		console.log(inOrderList);
+		// console.log(inOrderList);
 		this.root = this.buildTree(inOrderList);
 	}
 }
+//Driver Script
 let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
-// console.log(arr);
 let bSTree = new Tree(arr);
-console.log(bSTree.buildTree());
-bSTree.prettyPrint(bSTree.buildTree());
-// bSTree.insert(9);
-bSTree.insert(2);
-bSTree.insert(2);
-bSTree.insert(2);
-bSTree.insert(2);
-// bSTree.insert(6);
-// bSTree.delete(2);
-// bSTree.delete(23);
-// bSTree.delete(6345);
-// bSTree.delete(5);
-
-// bSTree.delete(8);
-// console.log(bSTree.root);
-// bSTree.delete(67);
-// bSTree.delete(4);
-// bSTree.delete(8);
-// bSTree.delete(5);
-// bSTree.delete(324);
-// bSTree.delete(9);
-// bSTree.delete(23);
-// console.log(bSTree.find(67));
-// console.log(bSTree.find(3));
-// console.log(bSTree.find(5));
-function consoleFunc(node) {
-	console.log(node.data);
-}
-// console.log(bSTree.levelOrder(consoleFunc));
-// bSTree.inOrder();
-// bSTree.preOrder();
-// bSTree.postOrder();
-// console.log(bSTree.preOrder());
-// // console.log(bSTree.postOrder());
-// console.log(bSTree.height(bSTree.find(67)));
-// console.log(bSTree.height(bSTree.find(4)));
-// console.log(bSTree.height(bSTree.find(8)));
-// console.log(bSTree.depth(bSTree.find(8)));
-// console.log(bSTree.depth(bSTree.find(67)));
-// console.log(bSTree.depth(bSTree.find(7)));
-console.log(bSTree.isBalanced());
+bSTree.buildTree();
+console.log("Is the tree balanced: " + bSTree.isBalanced());
+console.log("PreOrder: " + bSTree.preOrder());
+console.log("InOrder: " + bSTree.inOrder());
+console.log("PostOrder: " + bSTree.postOrder());
+bSTree.insert(101);
+bSTree.insert(103);
+bSTree.insert(125);
+bSTree.insert(136);
+console.log("Is the tree balanced: " + bSTree.isBalanced());
+console.log("Re-balancing the Tree ");
 bSTree.reBalance();
-console.log(bSTree.isBalanced());
+console.log("Is the tree balanced: " + bSTree.isBalanced());
+console.log("PreOrder: " + bSTree.preOrder());
+console.log("InOrder: " + bSTree.inOrder());
+console.log("PostOrder: " + bSTree.postOrder());
+
 bSTree.prettyPrint(bSTree.root);
 
-// bSTree.delete(1);
-// bSTree.delete(11); // to check if its working if the value is not in the bts
+//double checkers while creating the code :)
+// // console.log(arr);
+// console.log(bSTree.buildTree());
+// bSTree.prettyPrint(bSTree.buildTree());
+// // bSTree.insert(9);
+// // bSTree.insert(6);
+// // bSTree.delete(2);
+// // bSTree.delete(23);
+// // bSTree.delete(6345);
+// // bSTree.delete(5);
+
+// // bSTree.delete(8);
+// // console.log(bSTree.root);
+// // bSTree.delete(67);
+// // bSTree.delete(4);
+// // bSTree.delete(8);
+// // bSTree.delete(5);
+// // bSTree.delete(324);
+// // bSTree.delete(9);
+// // bSTree.delete(23);
+// // console.log(bSTree.find(67));
+// // console.log(bSTree.find(3));
+// // console.log(bSTree.find(5));
+// function consoleFunc(node) {
+// 	console.log(node.data);
+// }
+// // console.log(bSTree.levelOrder(consoleFunc));
+// // console.log(bSTree.preOrder());
+// // // console.log(bSTree.postOrder());
+// // console.log(bSTree.height(bSTree.find(67)));
+// // console.log(bSTree.height(bSTree.find(4)));
+// // console.log(bSTree.height(bSTree.find(8)));
+// // console.log(bSTree.depth(bSTree.find(8)));
+// // console.log(bSTree.depth(bSTree.find(67)));
+// // console.log(bSTree.depth(bSTree.find(7)));
+// console.log(bSTree.isBalanced());
+// console.log(bSTree.isBalanced());
+
+// // bSTree.delete(1);
+// // bSTree.delete(11); // to check if its working if the value is not in the bts
