@@ -203,7 +203,7 @@ class Tree {
 		return queue;
 	}
 
-	inOrder(func, node = this.root) {
+	inOrder(func, node = this.root, result = []) {
 		if (!node) {
 			return null;
 		}
@@ -211,15 +211,17 @@ class Tree {
 			func = null;
 		}
 		let temp = node;
-		this.inOrder(func, temp.left);
+		this.inOrder(func, temp.left, result);
 		if (func) {
 			func(node);
 		} else {
-			console.log(node.data);
+			result.push(node.data);
+			// console.log(node.data);
 		}
-		this.inOrder(func, temp.right);
+		this.inOrder(func, temp.right, result);
+		return result;
 	}
-	preOrder(func, node = this.root) {
+	preOrder(func, node = this.root, result = []) {
 		if (!node) {
 			return null;
 		}
@@ -230,12 +232,15 @@ class Tree {
 		if (func) {
 			func(node);
 		} else {
-			console.log(node.data);
+			result.push(node.data);
+
+			// console.log(node.data);
 		}
-		this.preOrder(func, temp.left);
-		this.preOrder(func, temp.right);
+		this.preOrder(func, temp.left, result);
+		this.preOrder(func, temp.right, result);
+		return result;
 	}
-	postOrder(func, node = this.root) {
+	postOrder(func, node = this.root, result = []) {
 		if (!node) {
 			return null;
 		}
@@ -243,13 +248,16 @@ class Tree {
 			func = null;
 		}
 		let temp = node;
-		this.postOrder(func, temp.left);
-		this.postOrder(func, temp.right);
+		this.postOrder(func, temp.left, result);
+		this.postOrder(func, temp.right, result);
 		if (func) {
 			func(node);
 		} else {
-			console.log(node.data);
+			result.push(node.data);
+
+			// console.log(node.data);
 		}
+		return result;
 	}
 	height(node) {
 		//it accepts a node and return its height
@@ -311,15 +319,28 @@ class Tree {
 			return result;
 		}
 	}
+	reBalance(node = this.root) {
+		if (this.isBalanced(node) == true) {
+			return;
+		}
+		if (!node) {
+			return;
+		}
+		let inOrderList = this.inOrder();
+		console.log(inOrderList);
+		this.root = this.buildTree(inOrderList);
+	}
 }
 let arr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 // console.log(arr);
 let bSTree = new Tree(arr);
 console.log(bSTree.buildTree());
-// bSTree.prettyPrint(bSTree.buildTree());
+bSTree.prettyPrint(bSTree.buildTree());
 // bSTree.insert(9);
-// bSTree.insert(2);
-// bSTree.insert(2);
+bSTree.insert(2);
+bSTree.insert(2);
+bSTree.insert(2);
+bSTree.insert(2);
 // bSTree.insert(6);
 // bSTree.delete(2);
 // bSTree.delete(23);
@@ -353,6 +374,8 @@ function consoleFunc(node) {
 // console.log(bSTree.depth(bSTree.find(8)));
 // console.log(bSTree.depth(bSTree.find(67)));
 // console.log(bSTree.depth(bSTree.find(7)));
+console.log(bSTree.isBalanced());
+bSTree.reBalance();
 console.log(bSTree.isBalanced());
 bSTree.prettyPrint(bSTree.root);
 
